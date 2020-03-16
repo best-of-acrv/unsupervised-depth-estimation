@@ -28,7 +28,7 @@ class RunPytorchModel:
         self.show_pytorch_output()
 
     def get_processed_image_to_use(self):
-        self.print_coloured("Load single image for now", colour='green')
+        self.print_coloured("Loading all images ending in .png or .jpg from the given folder {}".format(self.image_folder), colour='green')
         # There are 4 images in the directory called 1,2,3,4.png. Read all files ending with ".png" or ".jpg" in the folder.
         for file in os.listdir(self.image_folder):
             if file.endswith('png') or file.endswith('jpg'):
@@ -42,7 +42,6 @@ class RunPytorchModel:
                 image_BGR = numpy.transpose(image_BGR, (1, 0, 2))
                 image_BGR.astype(float)
                 # mean_data = numpy.mean(image_BGR)
-
                 mean_data = numpy.tile(numpy.reshape([104, 117, 123], (1, 1, 3), order='F'),
                                        (image_BGR.shape[0], image_BGR.shape[1], 1))
                 image_BGR = image_BGR - mean_data
@@ -85,13 +84,11 @@ class RunPytorchModel:
     def print_coloured(self, text, colour='red'):
         PURPLE = '\033[95m'
         CYAN = '\033[96m'
-        DARKCYAN = '\033[36m'
         BLUE = '\033[94m'
         GREEN = '\033[92m'
         YELLOW = '\033[93m'
         RED = '\033[91m'
         BOLD = '\033[1m'
-        UNDERLINE = '\033[4m'
         END = '\033[0m'
 
         if colour == 'red':
