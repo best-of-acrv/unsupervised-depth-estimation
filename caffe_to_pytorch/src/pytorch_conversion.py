@@ -5,6 +5,9 @@ import os
 import sys
 import numpy
 import numpy.matlib
+import subprocess
+# CAFFE_ROOT = subprocess.run(args=['which', 'caffe'], capture_output=True)
+
 import caffe
 from scipy.misc import imread, imresize
 import matplotlib.pyplot as plt
