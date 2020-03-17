@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.misc import imread, imresize
 import numpy
 from pytorch_net import *
-
+import time
 
 class RunPytorchModel:
     def __init__(self):
@@ -25,6 +25,7 @@ class RunPytorchModel:
         self.get_processed_image_to_use()
         self.load_pytorch_model()
         self.run_pytorch_model()
+        time.sleep(60)
         self.show_pytorch_output()
 
     def get_processed_image_to_use(self):
@@ -54,6 +55,11 @@ class RunPytorchModel:
     def load_pytorch_model(self):
         self.pytorch_model = torch.load(self.pytorch_model_file)
         self.print_coloured("PyTorch model loaded.", colour='green')
+        curr_dev = torch.cuda.current_device()
+        dev_name = torch.cuda.get_device_name(curr_dev)
+        self.print_coloured("PyTorch using {} {}.".format(curr_dev, dev_name), colour='green')
+        time.sleep(5)
+
 
     def run_pytorch_model(self):
         if self.pytorch_model:
