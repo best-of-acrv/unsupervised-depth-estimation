@@ -15,7 +15,7 @@ If you do not have `conda` or [Anaconda](https://www.anaconda.com/distribution/#
 
 *Note: We are assuming you are using a Linux:Ubuntu system.*
 
- ```shell script
+ ```
 # The version of Anaconda may be different depending on when you are installing`
 
 $ curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -29,7 +29,7 @@ sh Miniconda3-latest-Linux-x86_64.sh
 
 Next, in case you do not have `pip` installed for Python 3.x:
 
-```shell script
+```
 $ sudo apt install python3-pip
 ```
 #### `conda` environment setup
@@ -44,23 +44,23 @@ From the directory `unsupervised_depth_estimation_converted` navigate to the sub
 
 Create the new virtual environment:
 
-```shell script
+```
 $ conda env create -f pytorch-caffe-env.yml
 ```   
 
 Ensure that the conda environment is created:
 
-```shell script
+```
 $ conda info --envs
 ```
 
 If the environment isn't already running (you don't see `pytorch-caffe` before `$` ), start it with:
-```shell script
+```
 $ conda activate pytorch-caffe
 ```
 
 Now your terminal should indicate that you are in the virtual environment.
-```shell script
+```
 (pytorch-caffe) $
 ```
 
@@ -78,7 +78,7 @@ Let's run the script as it is. This script will do a list of things:
  
  To run the script, change directory to `src` folder: 
  
- ```shell script
+ ```
 (pytorch-caffe) $ pwd
 /unsupervised_depth_estimation_converted/caffe_to_pytorch
 
