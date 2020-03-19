@@ -46,6 +46,9 @@ From the directory `unsupervised_depth_estimation_converted` navigate to the sub
 Create the new virtual environment:
 
 ```
+$ pwd
+~/unsupervised_depth_estimation_converted
+$ cd /unsupervised_depth_estimation_converted/caffe_to_pytorch/virtual_environment/
 $ conda env create -f pytorch-caffe-env.yml
 ```   
 
@@ -81,7 +84,7 @@ Let's run the script as it is. This script will do a list of things:
  
 ```
 (pytorch-caffe) $ pwd
-/unsupervised_depth_estimation_converted/caffe_to_pytorch
+~/unsupervised_depth_estimation_converted/caffe_to_pytorch
 
 (pytorch-caffe) $ cd src
 
