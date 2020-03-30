@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 
-caffenet_path = "/home/garima/code/bestOfACRV/pytorch_caffe"
 import sys
-sys.path.append(caffenet_path)
+sys.path.append('../../caffe_to_pytorch/convertor_tool/pytorch_caffe')
 from caffenet import *
 
 

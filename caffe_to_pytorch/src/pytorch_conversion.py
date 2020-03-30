@@ -20,6 +20,8 @@ class TestPytorchConversion:
         self.parent_directory = os.path.abspath(os.path.join(self.base_directory, os.pardir))
         self.caffe_net_model = self.parent_directory + "/pycaffe_version/network/deploy_resnet50by2_pool.prototxt"
         self.caffe_net_weights = self.parent_directory + "/pycaffe_version/network/train_iter_40000.caffemodel"
+        self.save_pytorch_filename = None
+        self.pytorch_presaved_model = self.parent_directory + "/pytorch_version/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
         self.phase = 'test'
         self.image_folder = self.base_directory + "/sample_images"
         self.prediction_disp = {}
@@ -159,15 +161,20 @@ class TestPytorchConversion:
 
     def save_pytorch_model(self, save_full=True):
         if save_full:
-            filename = self.write_base_directory + "/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
-            torch.save(self.pytorch_caffe_net, filename)
+            self.save_pytorch_filename = self.write_base_directory + "/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
+            torch.save(self.pytorch_caffe_net, self.save_pytorch_filename)
         else:
-            filename = self.write_base_directory + "/deploy_resnet50by2_pool_pytorch_weights.pth"
-            torch.save(self.pytorch_caffe_net.state_dict(), filename)
+            self.save_pytorch_filename = self.write_base_directory + \
+                "/deploy_resnet50by2_pool_pytorch_weights.pth"
+            torch.save(self.pytorch_caffe_net.state_dict(),
+                       self.save_pytorch_filename)
 
     def test_saved_model(self):
         self.print_coloured('###########################################################################################', colour='blue')
-        pytorch_file = "/home/garima/code/bestOfACRV/other/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
+        if self.save_model:
+            pytorch_file = self.save_pytorch_filename
+        else:
+            pytorch_file = self.pytorch_presaved_model
         self.saved_pytorch_model = torch.load(pytorch_file)
         self.print_coloured("PyTorch model loaded.", colour='green')
 
