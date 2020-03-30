@@ -15,13 +15,13 @@ If you do not have `conda` or [Anaconda](https://www.anaconda.com/distribution/#
 
 *Note: We are assuming you are using a Linux:Ubuntu system.*
 
-```
+```bash
 # The version of Anaconda may be different depending on when you are installing`
 
 $ curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
+$ sh Miniconda3-latest-Linux-x86_64.sh
 
-# and follow the prompts. The defaults are generally good.`
+# and follow the prompts. Make sure to select yes for running conda init, otherwise the defaults are generally good.`
 
 ```
 
@@ -29,7 +29,7 @@ sh Miniconda3-latest-Linux-x86_64.sh
 
 Next, in case you do not have `pip` installed for Python 3.x:
 
-```
+```bash
 $ sudo apt install python3-pip
 ```
 
@@ -37,34 +37,32 @@ $ sudo apt install python3-pip
 Now that we have Anaconda/conda setup on our machine, we can clone and create a new environment suitable to run this package.
 
 If you haven't already cloned this repository, please do so now. 
-```buildoutcfg
+```bash
 $ git clone git@bitbucket.org:acrv/unsupervised_depth_estimation_converted.git
+$ cd unsupervised_depth_estimation_converted
 ```
 
-From the directory `unsupervised_depth_estimation_converted` navigate to the subdirectory `caffe_to_pytorch` (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `pytorch-caffe-env.yml`. This files contains the required packages and their dependencies for the `conda` environment. 
+<!-- From the directory `unsupervised_depth_estimation_converted` navigate to the subdirectory `caffe_to_pytorch` (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `pytorch-caffe-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
 
 Create the new virtual environment:
 
-```
-$ pwd
-~/unsupervised_depth_estimation_converted
-$ cd /unsupervised_depth_estimation_converted/caffe_to_pytorch/virtual_environment/
-$ conda env create -f pytorch-caffe-env.yml
+```bash
+$ conda env create -f caffe_to_pytorch/virtual_environment/pytorch-caffe-env.yml
 ```   
 
 Ensure that the conda environment is created:
 
-```
+```bash
 $ conda info --envs
 ```
 
 If the environment isn't already running (you don't see `pytorch-caffe` before `$` ), start it with:
-```
+```bash
 $ conda activate pytorch-caffe
 ```
 
 Now your terminal should indicate that you are in the virtual environment.
-```
+```bash
 (pytorch-caffe) $
 ```
 
@@ -82,12 +80,9 @@ Let's run the script as it is. This script will do a list of things:
  
  To run the script, change directory to `src` folder: 
  
-```
-(pytorch-caffe) $ pwd
-~/unsupervised_depth_estimation_converted/caffe_to_pytorch
-
-(pytorch-caffe) $ cd src
-
+```bash
+# From the root directory of the repository
+(pytorch-caffe) $ cd caffe_to_pytorch/src
 (pytorch-caffe) $ python3 pytorch_conversion.py
 ``` 
 
