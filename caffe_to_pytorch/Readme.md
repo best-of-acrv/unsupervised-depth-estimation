@@ -47,6 +47,8 @@ $ cd unsupervised_depth_estimation_converted
 Create the new virtual environment:
 
 ```bash
+$ pwd
+~/unsupervised_depth_estimation_converted
 $ conda env create -f caffe_to_pytorch/virtual_environment/pytorch-caffe-env.yml
 ```   
 

@@ -20,7 +20,7 @@ class TestPytorchConversion:
         self.parent_directory = os.path.abspath(os.path.join(self.base_directory, os.pardir))
         self.caffe_net_model = self.parent_directory + "/pycaffe_version/network/deploy_resnet50by2_pool.prototxt"
         self.caffe_net_weights = self.parent_directory + "/pycaffe_version/network/train_iter_40000.caffemodel"
-        self.save_pytorch_filename = None
+        self.save_pytorch_filename = self.write_base_directory + "/deploy_resnet50by2_pool_pytorch_"
         self.pytorch_presaved_model = self.parent_directory + "/pytorch_version/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
         self.phase = 'test'
         self.image_folder = self.base_directory + "/sample_images"
@@ -161,13 +161,11 @@ class TestPytorchConversion:
 
     def save_pytorch_model(self, save_full=True):
         if save_full:
-            self.save_pytorch_filename = self.write_base_directory + "/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
+            self.save_pytorch_filename = self.save_pytorch_filename + "modelAndWeights.pth"
             torch.save(self.pytorch_caffe_net, self.save_pytorch_filename)
         else:
-            self.save_pytorch_filename = self.write_base_directory + \
-                "/deploy_resnet50by2_pool_pytorch_weights.pth"
-            torch.save(self.pytorch_caffe_net.state_dict(),
-                       self.save_pytorch_filename)
+            self.save_pytorch_filename = self.save_pytorch_filename + "weights.pth"
+            torch.save(self.pytorch_caffe_net.state_dict(), self.save_pytorch_filename)
 
     def test_saved_model(self):
         self.print_coloured('###########################################################################################', colour='blue')
