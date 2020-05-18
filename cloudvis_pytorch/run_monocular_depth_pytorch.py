@@ -1,6 +1,14 @@
+#!/usr/bin/python3
+
+import sys
 import cv2
 from cloudvis import CloudVis
-from RunPytorchModel import *
+
+network_path = "/home/gsamvedi/code/unsupervised_depth_estimation_converted/pytorch_version/src"
+sys.path.append(network_path)
+
+from run_pytorch_model import RunPytorchModel
+# from  run_pytorch_model import RunPytorchModel
 
 PORT = 6003
 
