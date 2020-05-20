@@ -1,24 +1,30 @@
 #!/usr/bin/python3
 
-import sys
-import cv2
 from cloudvis import CloudVis
-
-network_path = "/home/gsamvedi/code/unsupervised_depth_estimation_converted/pytorch_version/src"
-sys.path.append(network_path)
-
-from run_pytorch_model import RunPytorchModel
-# from  run_pytorch_model import RunPytorchModel
+from run_network import RunModel
 
 PORT = 6003
 
 
+def disparityToBW(disparity_img):
+    disparity_img_b = disparity_img.numpy()
+    disparity_img_bw = disparity_img_b / 30.0
+    disparity_img_bw = disparity_img_bw * 255
+
+    return disparity_img_bw
+
+
 def callback(request, response, data):
     img = request.getImage('image')
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    response.addImage('result', gray)
+    print('Image received')
+
+    disparity_img = unsupervised_network.run(img)
+    disparity_img_bw = disparityToBW(disparity_img)
+
+    response.addImage('result', disparity_img_bw)
 
 
 if __name__ == '__main__':
     cloudvis = CloudVis(PORT)
+    unsupervised_network = RunModel()
     cloudvis.run(callback)

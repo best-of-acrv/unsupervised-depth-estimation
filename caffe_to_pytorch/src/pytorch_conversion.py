@@ -39,7 +39,7 @@ class TestPytorchConversion:
         self.saved_pytorch_model_output = {}
         self.saved_pytorch_net_model = {}
         self.debug_mode = False                          # Just additional printing
-        self.save_model = False
+        self.save_model = True
 
     def run(self):
         self.get_processed_image_to_use()

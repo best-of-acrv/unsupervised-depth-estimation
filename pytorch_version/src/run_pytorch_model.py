@@ -7,6 +7,7 @@ from scipy.misc import imread, imresize
 import numpy
 from pytorch_net import *
 
+
 class RunPytorchModel:
     def __init__(self):
         self.base_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))

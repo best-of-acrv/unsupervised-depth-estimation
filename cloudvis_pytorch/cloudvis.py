@@ -64,7 +64,7 @@ class CloudVis:
                 req = Request(self.socket.recv().decode('utf-8'))
                 resp = Response()
 
-                print ('Request received')
+                print('Request received')
 
                 try:
                     process(req, resp, data)
@@ -73,8 +73,8 @@ class CloudVis:
                     resp.addValues({'error': 1, 'message': str(e)})
 
                 self.socket.send(resp.toJSON().encode())
-                print ('Replied')
+                print('Replied')
 
             except KeyboardInterrupt:
-                print ('Shutting down...')
+                print('Shutting down...')
                 break
