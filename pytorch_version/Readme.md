@@ -65,6 +65,23 @@ Now your terminal should indicate that you are in the virtual environment.
 ```bash
 (pytorch-env) $
 ```
+### Network
+If you have just pulled this repository, the pytorch network will be compressed. Uncompress it on your local copy before the next steps. 
+
+First navigate to where the network file is:
+```bash
+$ pwd
+~/unsupervised_depth_estimation_converted
+$ cd pytorch_version/network
+```
+
+You should see the network tar file there. Let's uncompress it using `tar -xf <network-file>.tar.xz` 
+
+```bash
+$ tar -xf deploy_resnet50by2_pool_pytorch_modelAndWeights.tar.xz
+$ cd ../../
+```
+
 
 ### Script
 Now that we have an active conda environment, we can run the script. 
