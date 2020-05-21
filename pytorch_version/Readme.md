@@ -36,17 +36,17 @@ Now that we have Anaconda/conda setup on our machine, we can clone and create a 
 
 If you haven't already cloned this repository, please do so now. 
 ```bash
-$ git clone git@bitbucket.org:acrv/unsupervised_depth_estimation_converted.git
-$ cd unsupervised_depth_estimation_converted
+$ git clone git@github.com:RoboticVisionOrg/unsupervised_depth_estimation.git
+$ cd unsupervised_depth_estimation
 ```
 
-<!-- From the directory `unsupervised_depth_estimation_converted` navigate to the subdirectory `pytorch_version` (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `pytorch-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
+<!-- From the directory `unsupervised_depth_estimation` navigate to the subdirectory `pytorch_version` (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `pytorch-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
 
 Create the new virtual environment:
 
 ```bash
 $ pwd
-~/unsupervised_depth_estimation_converted
+~/unsupervised_depth_estimation
 $ conda env create -f pytorch_version/virtual_environment/pytorch-env.yml
 ```   
 
@@ -71,7 +71,7 @@ If you have just pulled this repository, the pytorch network will be compressed.
 First navigate to where the network file is:
 ```bash
 $ pwd
-~/unsupervised_depth_estimation_converted
+~/unsupervised_depth_estimation
 $ cd pytorch_version/network
 ```
 
