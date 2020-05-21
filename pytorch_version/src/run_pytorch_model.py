@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.misc import imread, imresize
 import numpy
 from pytorch_net import *
+import tarfile
 
 
 class RunPytorchModel:
@@ -22,10 +23,34 @@ class RunPytorchModel:
         self.pytorch_net_model = {}
 
     def run(self):
+        self.check_networkfile_unzipped()
         self.get_processed_image_to_use()
         self.load_pytorch_model()
         self.run_pytorch_model()
         self.show_pytorch_output()
+
+    def check_networkfile_unzipped(self):
+        tar_ext = ".tar.xz"
+        network_directory = os.path.dirname(self.pytorch_model_file)
+        file_list = os.listdir(network_directory)
+
+        # Check if unzip ".pth" file in the directory
+        if not os.path.basename(self.pytorch_model_file) in file_list:
+            # If not, check if zip version exists
+            self.print_coloured("PyTorch network file {} NOT found in folder {}. Checking for tarball.".format(self.pytorch_model_file, network_directory), colour='cyan')
+            if os.path.basename(self.pytorch_model_file).split(".")[0] + tar_ext in file_list:
+                self.print_coloured("PyTorch tarball {} found. Extracting...".format(os.path.basename(self.pytorch_model_file).split(".")[0] + tar_ext), colour='green')
+
+                network_tar = tarfile.open(self.pytorch_model_file.split(".")[0] + tar_ext)
+                network_tar.extractall(os.path.dirname(self.pytorch_model_file))
+                self.print_coloured("Done.", colour='green')
+
+                if os.path.basename(self.pytorch_model_file) in os.listdir(network_directory):
+                    self.print_coloured("PyTorch network extracted.", colour='green')
+                else:
+                    raise ValueError("Something went wrong. PyTorch file not found. Please check.")
+            else:
+                raise ValueError("No PyTorch model file found. Please confirm the correct network file is being used.")
 
     def get_processed_image_to_use(self):
         self.print_coloured("Loading all images ending in .png or .jpg from the given folder {}".format(self.image_folder), colour='green')
