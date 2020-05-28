@@ -79,8 +79,12 @@ class RunPytorchModel:
     def load_pytorch_model(self):
         self.pytorch_model = torch.load(self.pytorch_model_file)
         self.print_coloured("PyTorch model loaded.", colour='green')
-        curr_dev = torch.cuda.current_device()
-        dev_name = torch.cuda.get_device_name(curr_dev)
+        if torch.cuda.is_available():
+            curr_dev = torch.cuda.current_device()
+            dev_name = torch.cuda.get_device_name(curr_dev)
+        else:
+            curr_dev = "CPU"
+            dev_name = ""
         self.print_coloured("PyTorch using {} {}.".format(curr_dev, dev_name), colour='green')
 
     def run_pytorch_model(self):

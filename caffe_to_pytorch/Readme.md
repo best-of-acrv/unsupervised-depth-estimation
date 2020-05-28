@@ -38,7 +38,7 @@ Now that we have Anaconda/conda setup on our machine, we can clone and create a 
 
 If you haven't already cloned this repository, please do so now. 
 ```bash
-$ git clone git@github.com:RoboticVisionOrg/unsupervised_depth_estimation.git 
+$ git clone https://github.com/RoboticVisionOrg/unsupervised_depth_estimation.git
 $ cd unsupervised_depth_estimation
 ```
 
@@ -50,7 +50,7 @@ Create the new virtual environment:
 $ pwd
 ~/unsupervised_depth_estimation
 $ conda env create -f caffe_to_pytorch/virtual_environment/pytorch-caffe-env.yml
-```   
+```
 
 Ensure that the conda environment is created:
 
@@ -79,14 +79,14 @@ Let's run the script as it is. This script will do a list of things:
  5. Run inference for each image through the original Caffe Model, the in-memory PyTorch model and the loaded PyTorch model.
  6. Finally, it will run some assertion checks to ensure the output is within the acceptable range (same up to 4 decimal places)
  7. and Display the output figure of all the images. 
- 
+
  To run the script, change directory to `src` folder: 
- 
+
 ```bash
 # From the root directory of the repository
 (pytorch-caffe) $ cd caffe_to_pytorch/src
 (pytorch-caffe) $ python3 pytorch_conversion.py
-``` 
+```
 
 You might have noted, that the script currently does not save the model. To save the model, open the python script, and toggle the `self.save_model` from `False` to `True`.
 
