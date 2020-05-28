@@ -1,0 +1,4 @@
+
+*.pyc
+
+pytorch_version/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth
