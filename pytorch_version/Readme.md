@@ -36,7 +36,7 @@ Now that we have Anaconda/conda setup on our machine, we can clone and create a 
 
 If you haven't already cloned this repository, please do so now. 
 ```bash
-$ git clone git@github.com:RoboticVisionOrg/unsupervised_depth_estimation.git
+$ git clone https://github.com/RoboticVisionOrg/unsupervised_depth_estimation.git
 $ cd unsupervised_depth_estimation
 ```
 
@@ -92,14 +92,14 @@ Let's run the script as it is. This script will do a list of things:
  2. it will read all images from the `sample_images` subdirectory have '.png' or 'jpg' extension, 
  3. run inference for each image through the PyTorch model,
  4. and Display the output figure of all the images. 
- 
+
  To run the script, change directory to `src` folder: 
- 
+
 ```bash
 # From the root directory of the repository
 (pytorch-caffe) $ cd pytorch_version/src
 (pytorch-caffe) $ python3 run_pytorch_model.py
-``` 
+```
 
 ### Behind the scenes
 You might have noticed the file called `pytorch_net.py`. This class inherits from the parent class of the conversion tool and will pass all the conversion commands to the conversion tool. Currently this class exists to allow you to save and transport the PyTorch network without having to also wrap the tool. That is, if you use the saved network architecture generated using the tool,(until I find a way around this), you will need the `pytorch_net.py` class along with the saved network to load it into a PyTorch. 
