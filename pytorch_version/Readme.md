@@ -105,3 +105,31 @@ Let's run the script as it is. This script will do a list of things:
 You might have noticed the file called `pytorch_net.py`. This class inherits from the parent class of the conversion tool and will pass all the conversion commands to the conversion tool. Currently this class exists to allow you to save and transport the PyTorch network without having to also wrap the tool. That is, if you use the saved network architecture generated using the tool,(until I find a way around this), you will need the `pytorch_net.py` class along with the saved network to load it into a PyTorch. 
 
 
+# Train and Evaluation
+
+## Dataset
+Download the raw KITTI dataset: http://www.cvlibs.net/datasets/kitti/raw_data.php (use the saw dataset download script found on that page).
+
+Data splits are found in unsupervised_depth_estimation/pytorch_version/kitti_data
+
+## Train a Model
+Note: not fully working yet - disparities predicted by the model are large negative numbers, while those from ther Caffe version are positive (or some very small negative numbers).
+
+```bash
+# From the root directory of the repository
+(pytorch-caffe) $ cd pytorch_version/src
+(pytorch-caffe) $ python3 train_eval_pytorch_model.py train --image_files ../kitti_data/train_data.txt --kitti_root /path/to/KITTI/data --experiment_root /path/to/save/dir --gpu ID
+```
+Replace ID with the GPU device ID, or use the --cpu flag to use CPU only. Make sure you provide the paths to the KITTI root directory and an existing directory to save the model.
+
+## Evaluate a Model
+For Caffe trained model gives RMS about 5 (Caffe version github reports 3).
+Depths extract using code from https://github.com/mrharicot/monodepth
+Using crop regions from https://github.com/Huangying-Zhan/Depth-VO-Feat
+
+```bash
+# From the root directory of the repository
+(pytorch-caffe) $ cd pytorch_version/src
+(pytorch-caffe) $ python3 train_eval_pytorch_model.py eval --image_files ../kitti_data/test_data.txt --kitti_root /path/to/KITTI/data --experiment_root /path/to/save/dir --save_name model_name --gpu ID
+```
+Replace ID with the GPU device ID, or use the --cpu flag to use CPU only. Make sure you provide the paths to the KITTI root directory and an existing directory that contains the saved model (as model.pt). Replace model_name with file pytorch weights file ("model.pt" is deafault if not provided). Provide the --save-preds flag to save predicted depth maps.
