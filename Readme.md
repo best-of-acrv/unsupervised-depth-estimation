@@ -9,13 +9,13 @@ This repository provides 1) a pycaffe implementation of the original network (to
 ## Repository Structure
 This repository is split into three sections, one for each implementation.
 
-### PyCaffe Version
-
-PyCaffe version consists of pycaffe implementation of the original matcaffe sample inference script along with the trained caffe network. It also contains some sample images. Finally, it has a conda environment definition file that can be used to quickly create the virtual environment required to use it.
-
 ### PyTorch Version
 
 PyTorch version includes the converted Caffe to PyTorch network (architecture and the weights) along with a sample script to run the inference and some sample images. It also has a seperate conda environment file that can be used to create an virtual environment to run the pytorch version.
+
+### PyCaffe Version
+
+PyCaffe version consists of pycaffe implementation of the original matcaffe sample inference script along with the trained caffe network. It also contains some sample images. Finally, it has a conda environment definition file that can be used to quickly create the virtual environment required to use it.
 
 ### Caffe to PyTorch Version
 

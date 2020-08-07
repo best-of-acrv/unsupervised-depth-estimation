@@ -36,7 +36,7 @@ Now that we have Anaconda/conda setup on our machine, we can clone and create a 
 
 If you haven't already cloned this repository, please do so now. 
 ```bash
-$ git clone git@github.com:RoboticVisionOrg/unsupervised_depth_estimation.git
+$ git clone https://github.com/RoboticVisionOrg/unsupervised_depth_estimation.git
 $ cd unsupervised_depth_estimation
 ```
 
