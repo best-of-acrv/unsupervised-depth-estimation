@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import sys
-sys.path.append('../../caffe_to_pytorch/convertor_tool/pytorch_caffe')
+sys.path.append('../../utils/caffe_to_pytorch/convertor_tool/pytorch_caffe')
 from caffenet import *
 
 
