@@ -106,7 +106,7 @@ If you chose to build from source, the inference script `run_depth_estimator.py`
 The code snipet shows how to use single view depth estimator directly in your own projects.
 
 ```python
-from singleview_depth_estimator import SingleViewDepthEstimator
+from run_depth_estimator import SingleViewDepthEstimator
 
 # Initialise a full RefineNet network with no pre-trained model
 sv = SingleViewDepthEstimator()
@@ -115,10 +115,11 @@ sv = SingleViewDepthEstimator()
 sv = SingleViewDepthEstimator(load_snapshot='/path/to/snapshot')
 
 # Get a predicted segmentation as a NumPy image, given an input NumPy image
+my_image = imread("</path/to/image>")
 segmentation_image = sv.predict(image=my_image)
 
 # Save a segmentation image to file, given an image from another image file
-sv.predict(image_file='/my/prediction.jpg',
+sv.predict(image='/my/prediction.jpg',
           output_file='/my/segmentation/image.jpg')
 ```
 

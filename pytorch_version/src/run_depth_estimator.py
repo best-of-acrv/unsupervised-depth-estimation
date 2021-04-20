@@ -8,7 +8,7 @@ import numpy
 from pytorch_net import *
 import tarfile
 from torchvision import models
-
+import cv2
 
 class SingleViewDepthEstimator:
     def __init__(self):
@@ -104,7 +104,7 @@ class SingleViewDepthEstimator:
         image_BGR = numpy.expand_dims(image_BGR, axis=0)
         return image_BGR
 
-    def predict(self, image):
+    def predict(self, image, output_file=None):
         self.pytorch_model = torch.load(self.pytorch_model_file)
         # self.pytorch_model.to(self.device)
         self.pytorch_model.eval()
@@ -113,8 +113,12 @@ class SingleViewDepthEstimator:
         output= self.pytorch_model.forward(processed_image)
         output_image = output['h_flow'].detach()
         output_transposed = numpy.transpose(output_image, (2, 3, 0, 1))
-        return numpy.squeeze(output_transposed)
-    
+        prediction = numpy.squeeze(output_transposed)
+        # TODO : FINISH SAVING TO FILE FEATURE
+        if output_file:
+            cv2.imwrite(output_file, prediction)
+        return prediction
+
     def run_pytorch_model(self):
         if self.pytorch_model:
             self.pytorch_model.eval()
