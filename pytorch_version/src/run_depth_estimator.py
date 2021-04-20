@@ -10,11 +10,12 @@ import tarfile
 from torchvision import models
 
 
-class RunPytorchModel:
+class SingleViewDepthEstimator:
     def __init__(self):
         self.base_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
         self.pytorch_model_file = self.base_directory + "/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
         self.image_folder = self.base_directory + "/sample_images"
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.prediction_disp = {}
         self.read_images = []
         self.processed_images = []
@@ -88,6 +89,32 @@ class RunPytorchModel:
             dev_name = ""
         self.print_coloured("PyTorch using {} {}.".format(curr_dev, dev_name), colour='green')
 
+    def get_processed_image(self, image):
+        # Resize to be 160 by 608 pixels.
+        image = imresize(image, (160, 608))
+        image_BGR = image[...,
+                    ::-1]  # ::-1 inverts the order of the last dimension (channels). img = img[:, :, : :-1] is equivalent to img = img[:, :, [2,1,0]].
+        image_BGR = numpy.transpose(image_BGR, (1, 0, 2))
+        image_BGR.astype(float)
+        # mean_data = numpy.mean(image_BGR)
+        mean_data = numpy.tile(numpy.reshape([104, 117, 123], (1, 1, 3), order='F'),
+                               (image_BGR.shape[0], image_BGR.shape[1], 1))
+        image_BGR = image_BGR - mean_data
+        image_BGR = numpy.transpose(image_BGR, (2, 1, 0))  # (W, H, C) -> (C, H, W)
+        image_BGR = numpy.expand_dims(image_BGR, axis=0)
+        return image_BGR
+
+    def predict(self, image):
+        self.pytorch_model = torch.load(self.pytorch_model_file)
+        # self.pytorch_model.to(self.device)
+        self.pytorch_model.eval()
+        processed_image = self.get_processed_image(image)
+        processed_image = torch.from_numpy(processed_image).float()
+        output= self.pytorch_model.forward(processed_image)
+        output_image = output['h_flow'].detach()
+        output_transposed = numpy.transpose(output_image, (2, 3, 0, 1))
+        return numpy.squeeze(output_transposed)
+    
     def run_pytorch_model(self):
         if self.pytorch_model:
             self.pytorch_model.eval()
@@ -141,5 +168,5 @@ class RunPytorchModel:
 
 
 if __name__ == '__main__':
-    model = RunPytorchModel()
+    model = SingleViewDepthEstimator()
     model.run()

@@ -98,7 +98,7 @@ Let's run the script as it is. This script will do a list of things:
 ```bash
 # From the root directory of the repository
 (pytorch-caffe) $ cd pytorch_version/src
-(pytorch-caffe) $ python3 run_pytorch_model.py
+(pytorch-caffe) $ python3 run_depth_estimator.py
 ```
 
 ### Behind the scenes

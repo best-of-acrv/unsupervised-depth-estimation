@@ -7,7 +7,7 @@ from scipy.misc import imread, imresize
 import numpy
 from pytorch_net import *
 import tarfile
-from run_pytorch_model import RunPytorchModel
+from run_depth_estimator import SingleViewDepthEstimator
 import argparse
 import kitti_loader
 from torch.utils.data import DataLoader
@@ -19,7 +19,7 @@ def init_weights_xavier(m):
         m.bias.data.fill_(0.0)
 
 
-class TrainEvalPytorchModel(RunPytorchModel):
+class TrainEvalPytorchModel(SingleViewDepthEstimator):
     def __init__(self, kitti_root, save_root, save_name, gpu_id):
         super(TrainEvalPytorchModel, self).__init__()
 
