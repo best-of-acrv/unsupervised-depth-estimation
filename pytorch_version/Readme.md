@@ -110,17 +110,23 @@ You might have noticed the file called `pytorch_net.py`. This class inherits fro
 ## Dataset
 Download the raw KITTI dataset: http://www.cvlibs.net/datasets/kitti/raw_data.php (use the saw dataset download script found on that page).
 
-Data splits are found in unsupervised_depth_estimation/pytorch_version/kitti_data
+We have the data splits required for training, evaluation and testing in `unsupervised_depth_estimation/pytorch_version/kitti_data` folder.
 
 ## Train a Model
 Note: not fully working yet - disparities predicted by the model are large negative numbers, while those from ther Caffe version are positive (or some very small negative numbers).
 
+To train the model, call the training script with 4 main parameters :
+1. `image_files` : This is the text file specifying which images should be used for training. You can use the one we already specified for the KITTI dataset which can be found in the `kitti_data` folder called `train_data.txt`.
+2. `kitti_root`: This is the path to your downloaded KITTI dataset from the step above. This should include the images specified in `train_data.txt`
+3.  `save_root` : This is the location of an existing directory where you would like to save the trained model.  
+4. `GPU` : Specify the GPU Device ID or use the --cpu flag to use CPU only.
+
 ```bash
 # From the root directory of the repository
 (pytorch-caffe) $ cd pytorch_version/src
-(pytorch-caffe) $ python3 train_eval_pytorch_model.py train --image_files ../kitti_data/train_data.txt --kitti_root /path/to/KITTI/data --experiment_root /path/to/save/dir --gpu ID
+(pytorch-caffe) $ python3 train_eval_pytorch_model.py train --image_files ../kitti_data/train_data.txt --kitti_root </path/to/KITTI/data> --save_root </path/to/save/dir> --gpu <ID>
 ```
-Replace ID with the GPU device ID, or use the --cpu flag to use CPU only. Make sure you provide the paths to the KITTI root directory and an existing directory to save the model.
+*Note: Ensure you have replaced ID with the GPU device ID (or used the --cpu flag to use CPU only), provide the paths to the KITTI root directory and an existing directory to save the model in the command above.*
 
 ## Evaluate a Model
 For Caffe trained model gives RMS about 5 (Caffe version github reports 3).
@@ -130,6 +136,6 @@ Using crop regions from https://github.com/Huangying-Zhan/Depth-VO-Feat
 ```bash
 # From the root directory of the repository
 (pytorch-caffe) $ cd pytorch_version/src
-(pytorch-caffe) $ python3 train_eval_pytorch_model.py eval --image_files ../kitti_data/test_data.txt --kitti_root /path/to/KITTI/data --experiment_root /path/to/save/dir --save_name model_name --gpu ID
+(pytorch-caffe) $ python3 train_eval_pytorch_model.py eval --image_files ../kitti_data/test_data.txt --kitti_root </path/to/KITTI/data> --save_root </path/to/save/dir> --save_name <model_name> --gpu <ID>
 ```
 Replace ID with the GPU device ID, or use the --cpu flag to use CPU only. Make sure you provide the paths to the KITTI root directory and an existing directory that contains the saved model (as model.pt). Replace model_name with file pytorch weights file ("model.pt" is deafault if not provided). Provide the --save-preds flag to save predicted depth maps.

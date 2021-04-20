@@ -1,4 +1,16 @@
-# Monocam Unsupervised Depth Estimation 
+<p align=center><strong>~Please note this is only a <em>beta</em> release at this stage~</strong></p>
+
+# Unsupervised CNN for Single View Depth Estimation 
+
+[![Best of ACRV Repository](https://img.shields.io/badge/collection-best--of--acrv-%23a31b2a)](https://roboticvision.org/best-of-acrv)
+
+TODO : MAKE IMAGE BETTER!
+
+
+
+Unsupervised CNN for Single View Depth Estimation, is a nueral networks that can predict depth from a single RGB image. It achieves this by training the network analogous to an autoencoder with a pair of images, source and target, with a small known camera motion between the two. The convolution encoder is trained to predict the depth map of the source image. To do this,
+inverse warp of the target image is generated using the predicted depth and known
+inter-view displacement, to reconstruct the source image; the photometric error in the reconstruction is the reconstruction loss for the encoder. [The paper](https://arxiv.org/pdf/1603.04992v2.pdf) further details the unsupervised deep learning framework developed to predict scene depth from a single image, that does not require a pre-training stage or annotated depth ground-truth.
 
 This repository wraps Ravi Garg's Unsupervised CNN for Single View Depth Estimation work. The original work was developed, trained and deployed in Caffe 1 and can be found here: https://github.com/Ravi-Garg/Unsupervised_Depth_Estimation. 
 

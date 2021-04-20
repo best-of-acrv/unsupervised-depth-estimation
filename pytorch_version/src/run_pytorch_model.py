@@ -7,6 +7,7 @@ from scipy.misc import imread, imresize
 import numpy
 from pytorch_net import *
 import tarfile
+from torchvision import models
 
 
 class RunPytorchModel:
@@ -92,6 +93,8 @@ class RunPytorchModel:
             self.pytorch_model.eval()
             for index, img in enumerate(self.processed_images):
                 image = torch.from_numpy(img).float()
+                # online_resnet50 = models.resnet50(pretrained=True)
+                # print(online_resnet50)
                 self.pytorch_model_output.update({index: self.pytorch_model.forward(image)})
                 self.pytorch_net_model.update({index: self.pytorch_model.models})
         else:
