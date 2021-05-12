@@ -3,7 +3,8 @@
 import os
 import torch
 import matplotlib.pyplot as plt
-from scipy.misc import imread, imresize
+# from scipy.misc import imread, imresize
+
 import numpy
 from pytorch_net import *
 import tarfile
@@ -62,9 +63,10 @@ class SingleViewDepthEstimator:
                 read_file = "{}/{}".format(self.image_folder, file)
                 self.print_coloured("Reading image file {}".format(read_file), colour='green')
                 # Read each image at a time - shape: (188, 620, 3)
-                image = imread(read_file)
+                image = cv2.imread(read_file)
                 # Resize to be 160 by 608 pixels.
-                image = imresize(image, (160, 608))
+                # image = imresize(image, (160, 608))
+                image = cv2.resize(image, (608,160)) # changing column and row to work with cv2
                 image_BGR = image[..., ::-1]  # ::-1 inverts the order of the last dimension (channels). img = img[:, :, : :-1] is equivalent to img = img[:, :, [2,1,0]].
                 image_BGR = numpy.transpose(image_BGR, (1, 0, 2))
                 image_BGR.astype(float)
@@ -91,7 +93,9 @@ class SingleViewDepthEstimator:
 
     def get_processed_image(self, image):
         # Resize to be 160 by 608 pixels.
-        image = imresize(image, (160, 608))
+        # image = imresize(image, (160, 608)) # old scipy
+        image = cv2.resize(image, (608, 160)) # changing column and row to work with cv2
+
         image_BGR = image[...,
                     ::-1]  # ::-1 inverts the order of the last dimension (channels). img = img[:, :, : :-1] is equivalent to img = img[:, :, [2,1,0]].
         image_BGR = numpy.transpose(image_BGR, (1, 0, 2))
