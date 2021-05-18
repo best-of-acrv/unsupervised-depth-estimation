@@ -106,21 +106,28 @@ If you chose to build from source, the example inference script `run_depth_estim
 The code snipet shows how to use single view depth estimator directly in your own projects.
 
 ```python
-from run_depth_estimator import RunSingleViewDepthExample
+from unsupervised_single_view_depth import UnsupervisedSingleViewDepth
 
-# Initialise a full RefineNet network with no pre-trained model
-sv = RunSingleViewDepthExample()
+# Initialise a full RefineNet network with  pre-trained KITTI model available in repository
+sv = UnsupervisedSingleViewDepth()
 
-# Load a previous snapshot from a 152 layer network
-sv = RunSingleViewDepthExample(load_snapshot='/path/to/snapshot')
+# Load a previous snapshot from a self trained network
+sv = UnsupervisedSingleViewDepth(load_snapshot='/path/to/snapshot/file.pth')
 
 # Get a predicted segmentation as a NumPy image, given an input NumPy image
-my_image = imread("</path/to/image>")
+my_image = cv2.imread("</path/to/image>")
 segmentation_image = sv.predict(image=my_image)
 
+# If you want to provide path to image instead
+segmentation_image = sv.predict(image_path="</path/to/input_image>")
+
 # Save a segmentation image to file, given an image from another image file
-sv.predict(image='/my/prediction.jpg',
+sv.predict(image_path='/my/prediction.jpg',
           output_file='/my/segmentation/image.jpg')
+
+# If you would like to see the output prediction and input images plotted 
+sv.predict(image_path='/my/prediction.jpg',
+plot_prediction=True)
 ```
 
 ## Citing our work
