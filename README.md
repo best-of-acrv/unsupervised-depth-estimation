@@ -62,10 +62,10 @@ We offer three methods to install our packages:
 The only requirement is that you have [Conda installed](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) on your system, and are inside a [Conda environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). From there, simply run:
 
 ```
-u@pc:~$ conda install acrv-single-view
+u@pc:~$ conda install single_view_depth
 ```
 
-You can see a list of our Conda dependencies in the [`./pytorch-env.yml`](./pytorch_version/pytorch-env.yml) file.
+You can see a list of our Conda dependencies in the [`./pytorch-env.yml`](unsupervised_single_view_depth/pytorch-env.yml) file.
 
 ### Pip
 
@@ -77,7 +77,7 @@ Before installing via `pip`, you must have the following system dependencies ins
 Then Single View Depth Estimator, and all its Python dependencies can be installed via:
 
 ```
-u@pc:~$ pip install acrv-single-view
+u@pc:~$ pip install single_view_depth
 ```
 
 ### From source
@@ -96,23 +96,23 @@ Once installed, single view depth estimator can be used directly from the comman
 
 TODO: add details for quickstart scripts that run directly from the command line
 
-Once installed, our pytorch package can be used like any other Python package. It consists of a `SingleViewDepthEstimator` class with currently one main functions for inference and deployment. We are working on adding training and evaluation. Below are some examples to help get you started. 
+Once installed, our pytorch package can be used like any other Python package. It consists of a `RunSingleViewDepthExample` class with currently one main functions for inference and deployment. We are working on adding training and evaluation. Below are some examples to help get you started. 
 
 TODO: THE LINES BELOW!!
-If you chose to build from source, the inference script `run_depth_estimator.py` can run from the command line to get sample output.
+If you chose to build from source, the example inference script `run_depth_estimator_example.py` can run from the command line to get sample output.
 
 ## Single View Depth Estimator PyTorch API
 
 The code snipet shows how to use single view depth estimator directly in your own projects.
 
 ```python
-from run_depth_estimator import SingleViewDepthEstimator
+from run_depth_estimator import RunSingleViewDepthExample
 
 # Initialise a full RefineNet network with no pre-trained model
-sv = SingleViewDepthEstimator()
+sv = RunSingleViewDepthExample()
 
 # Load a previous snapshot from a 152 layer network
-sv = SingleViewDepthEstimator(load_snapshot='/path/to/snapshot')
+sv = RunSingleViewDepthExample(load_snapshot='/path/to/snapshot')
 
 # Get a predicted segmentation as a NumPy image, given an input NumPy image
 my_image = imread("</path/to/image>")

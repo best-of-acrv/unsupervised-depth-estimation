@@ -40,14 +40,14 @@ $ git clone https://github.com/RoboticVisionOrg/unsupervised_depth_estimation.gi
 $ cd unsupervised_depth_estimation
 ```
 
-<!-- From the directory `unsupervised_depth_estimation` navigate to the subdirectory `pytorch_version` (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `pytorch-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
+<!-- From the directory `unsupervised_depth_estimation` navigate to the subdirectory `unsupervised_single_view_depth` (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `pytorch-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
 
 Create the new virtual environment:
 
 ```bash
 $ pwd
 ~/unsupervised_depth_estimation
-$ conda env create -f pytorch_version/virtual_environment/pytorch-env.yml
+$ conda env create -f unsupervised_single_view_depth/virtual_environment/pytorch-env.yml
 ```   
 
 Ensure that the conda environment is created:
@@ -72,7 +72,7 @@ First navigate to where the network file is:
 ```bash
 $ pwd
 ~/unsupervised_depth_estimation
-$ cd pytorch_version/network
+$ cd unsupervised_single_view_depth/network
 ```
 
 You should see the network tar file there. Let's uncompress it using `tar -xf <network-file>.tar.xz` 
@@ -97,8 +97,8 @@ Let's run the script as it is. This script will do a list of things:
 
 ```bash
 # From the root directory of the repository
-(pytorch-caffe) $ cd pytorch_version/src
-(pytorch-caffe) $ python3 run_depth_estimator.py
+(pytorch-caffe) $ cd unsupervised_single_view_depth/src
+(pytorch-caffe) $ python3 run_depth_estimator_example.py
 ```
 
 ### Behind the scenes
@@ -123,7 +123,7 @@ To train the model, call the training script with 4 main parameters :
 
 ```bash
 # From the root directory of the repository
-(pytorch-caffe) $ cd pytorch_version/src
+(pytorch-caffe) $ cd unsupervised_single_view_depth/src
 (pytorch-caffe) $ python3 train_eval_pytorch_model.py train --image_files ../kitti_data/train_data.txt --kitti_root </path/to/KITTI/data> --save_root </path/to/save/dir> --gpu <ID>
 ```
 *Note: Ensure you have replaced ID with the GPU device ID (or used the --cpu flag to use CPU only), provide the paths to the KITTI root directory and an existing directory to save the model in the command above.*
@@ -135,7 +135,7 @@ Using crop regions from https://github.com/Huangying-Zhan/Depth-VO-Feat
 
 ```bash
 # From the root directory of the repository
-(pytorch-caffe) $ cd pytorch_version/src
+(pytorch-caffe) $ cd unsupervised_single_view_depth/src
 (pytorch-caffe) $ python3 train_eval_pytorch_model.py eval --image_files ../kitti_data/test_data.txt --kitti_root </path/to/KITTI/data> --save_root </path/to/save/dir> --save_name <model_name> --gpu <ID>
 ```
 Replace ID with the GPU device ID, or use the --cpu flag to use CPU only. Make sure you provide the paths to the KITTI root directory and an existing directory that contains the saved model (as model.pt). Replace model_name with file pytorch weights file ("model.pt" is deafault if not provided). Provide the --save-preds flag to save predicted depth maps.

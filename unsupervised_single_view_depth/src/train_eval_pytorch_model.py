@@ -7,7 +7,7 @@ from scipy.misc import imread, imresize
 import numpy
 from pytorch_net import *
 import tarfile
-from run_depth_estimator import SingleViewDepthEstimator
+from run_depth_estimator_example import RunSingleViewDepthExample
 import argparse
 import kitti_loader
 from torch.utils.data import DataLoader
@@ -19,7 +19,7 @@ def init_weights_xavier(m):
         m.bias.data.fill_(0.0)
 
 
-class TrainEvalPytorchModel(SingleViewDepthEstimator):
+class TrainEvalPytorchModel(RunSingleViewDepthExample):
     def __init__(self, kitti_root, save_root, save_name, gpu_id):
         super(TrainEvalPytorchModel, self).__init__()
 
@@ -39,7 +39,7 @@ class TrainEvalPytorchModel(SingleViewDepthEstimator):
 
     def train(self, train_image_files, val_image_files=None):
 
-        self.pytorch_model = PytorchNet("../../pycaffe_version/network/deploy_resnet50by2_pool.prototxt").to(
+        self.pytorch_model = PytorchNet("../../unsupervised_single_view_depth_pycaffe/network/deploy_resnet50by2_pool.prototxt").to(
             self.device)
         print("Training started. Using PyTorch Network {}".format(self.pytorch_model))
         # print(self.pytorch_model)

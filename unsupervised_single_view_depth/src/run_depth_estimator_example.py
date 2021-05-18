@@ -11,7 +11,7 @@ import tarfile
 from torchvision import models
 import cv2
 
-class SingleViewDepthEstimator:
+class RunSingleViewDepthExample:
     def __init__(self):
         self.base_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
         self.pytorch_model_file = self.base_directory + "/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
@@ -176,5 +176,5 @@ class SingleViewDepthEstimator:
 
 
 if __name__ == '__main__':
-    model = SingleViewDepthEstimator()
+    model = RunSingleViewDepthExample()
     model.run()

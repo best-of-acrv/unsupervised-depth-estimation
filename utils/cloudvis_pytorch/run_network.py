@@ -17,7 +17,7 @@ from pytorch_net import *
 class RunModel:
     def __init__(self):
         self.base_directory = os.path.abspath(os.path.join(os.path.join(os.getcwd(), os.pardir), os.pardir))
-        self.pytorch_model_file = self.base_directory + "/pytorch_version" +"/network/deploy_resnet50by2_pool_pytorch.pth"
+        self.pytorch_model_file = self.base_directory + "/unsupervised_single_view_depth" +"/network/deploy_resnet50by2_pool_pytorch.pth"
         self.prediction_disp = None
         self.processed_image = None
         self.original_image = None
