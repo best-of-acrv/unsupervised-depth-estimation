@@ -11,7 +11,7 @@ setup(name='single_view_depth',
       long_description=long_description,
       long_description_content_type='text/markdown',
       packages=find_packages(),
-      install_requires=['torch', 'torchvision', 'numpy', 'requests', 'pillow', 'opencv-python', 'matplotlib'],
+      install_requires=['torch', 'torchvision', 'numpy', 'requests', 'pillow', 'opencv-python', 'matplotlib', 'caffe'],
       classifiers=(
           "Development Status :: 4 - Beta",
           "Programming Language :: Python :: 3",
