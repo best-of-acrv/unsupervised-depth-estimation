@@ -10,7 +10,7 @@ import cv2
 from pytorch_net import *
 
 class UnsupervisedSingleViewDepth:
-    def __init__(self, load_snapshot=None, gpu_id=0):
+    def __init__(self, load_snapshot=None, gpu_id=0, use_gpu_if_available=True):
         self.base_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
         self.pytorch_model = None
         self.plt = plt.figure()
@@ -21,9 +21,11 @@ class UnsupervisedSingleViewDepth:
         else:
             self.pytorch_model_file = load_snapshot
         self.load_pytorch_model()
-
-        self.device = torch.device("cuda:{}".format(gpu_id) if torch.cuda.is_available() else "cpu")
-
+        if use_gpu_if_available is True:
+            self.device = torch.device("cuda:{}".format(gpu_id) if torch.cuda.is_available() else "cpu")
+        else:
+            self.device = "cpu"
+        self.print_coloured("Setting Device : {}".format(self.device), colour='green')
 
     def check_networkfile_unzipped(self):
         tar_ext = ".tar.xz"
@@ -52,25 +54,16 @@ class UnsupervisedSingleViewDepth:
         try:
             self.pytorch_model = torch.load(self.pytorch_model_file)
             self.print_coloured("PyTorch model loaded : {}.".format(self.pytorch_model_file), colour='green')
-            if torch.cuda.is_available():
-                curr_dev = torch.cuda.current_device()
-                dev_name = torch.cuda.get_device_name(curr_dev)
-            else:
-                curr_dev = "CPU"
-                dev_name = ""
-            self.print_coloured("PyTorch using GPU ID {} {}.".format(curr_dev, dev_name), colour='green')
         except Exception as e:
             print("ERROR! Couldn't load model file. {}".format(e))
 
     def get_processed_image(self, image):
         # Resize to be 160 by 608 pixels.
-        # image = imresize(image, (160, 608)) # old scipy
-        image = cv2.resize(image, (608, 160)) # changing column and row to work with cv2
+        image = cv2.resize(image, (608, 160)) # changing column and row from (160,608) to (608,160) for it to work with cv2
         image_BGR = image[...,
                     ::-1]  # ::-1 inverts the order of the last dimension (channels). img = img[:, :, : :-1] is equivalent to img = img[:, :, [2,1,0]].
         image_BGR = numpy.transpose(image_BGR, (1, 0, 2))
         image_BGR.astype(float)
-        # mean_data = numpy.mean(image_BGR)
         mean_data = numpy.tile(numpy.reshape([104, 117, 123], (1, 1, 3), order='F'),
                                (image_BGR.shape[0], image_BGR.shape[1], 1))
         image_BGR = image_BGR - mean_data
@@ -78,7 +71,7 @@ class UnsupervisedSingleViewDepth:
         image_BGR = numpy.expand_dims(image_BGR, axis=0)
         return image_BGR
 
-    def predict(self, image=None, image_path=None, output_file=None, plot_prediction=True):
+    def predict(self, image=None, image_path=None, output_file=None, plot_prediction=False):
         if image is None and image_path is None:
             raise ValueError("Predict must have an input cv2 image or a path to a image.")
         if image is not None and image_path is not None:
@@ -87,30 +80,29 @@ class UnsupervisedSingleViewDepth:
             image = cv2.imread(image_path)
 
         if self.pytorch_model:
-            # TODO : GPU loading test
-            # self.pytorch_model.to(self.device)
+            self.pytorch_model.to(self.device)
             self.pytorch_model.eval()
 
             processed_image = self.get_processed_image(image)
             processed_image = torch.from_numpy(processed_image).float()
-            # processed_image.to(self.device)
+            processed_image = processed_image.to(self.device)
 
             output= self.pytorch_model.forward(processed_image)
-            output_image = output['h_flow'].detach()
+            output_image = output['h_flow'].cpu().detach()
             output_transposed = numpy.transpose(output_image, (2, 3, 0, 1))
             prediction = numpy.squeeze(output_transposed)
-
-            # TODO : FINISH SAVING TO FILE FEATURE
-            if output_file:
-                cv2.imwrite(output_file, prediction)
 
             # TODO : REMOVE THIS WARNING (MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
             #   plt.subplot(subplot_number)
             if plot_prediction:
                 self.print_images(subplot_number=211, image_to_use=image, title="Input image")
-            self.print_images(subplot_number=212, image_to_use=prediction, title="Estimated Depth", show_plot=True)
+            self.print_images(subplot_number=212, image_to_use=prediction, title="Estimated Depth", show_plot=plot_prediction)
+
+            if output_file:
+                cv2.imwrite(output_file, prediction.numpy())
 
             return prediction
+
         else:
             raise ValueError("Are you sure the PyTorch model is loaded? Model (self.pytorch_model) not found.")
 

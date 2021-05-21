@@ -114,6 +114,14 @@ sv = UnsupervisedSingleViewDepth()
 # Load a previous snapshot from a self trained network
 sv = UnsupervisedSingleViewDepth(load_snapshot='/path/to/snapshot/file.pth')
 
+# By default, the inference code will run on GPU, device 0. To change the GPU device to use:
+
+sv = UnsupervisedSingleViewDepth(gpu_id=1)
+
+# If you don't want to use GPU even if available, change the gpu flag to False:
+
+sv = UnsupervisedSingleViewDepth(use_gpu_if_available=False)
+
 # Get a predicted segmentation as a NumPy image, given an input NumPy image
 my_image = cv2.imread("</path/to/image>")
 segmentation_image = sv.predict(image=my_image)
@@ -122,11 +130,11 @@ segmentation_image = sv.predict(image=my_image)
 segmentation_image = sv.predict(image_path="</path/to/input_image>")
 
 # Save a segmentation image to file, given an image from another image file
-sv.predict(image_path='/my/prediction.jpg',
+sv.predict(image_path='/my/prediction.png',
           output_file='/my/segmentation/image.jpg')
 
 # If you would like to see the output prediction and input images plotted 
-sv.predict(image_path='/my/prediction.jpg',
+sv.predict(image_path='/my/prediction.png',
 plot_prediction=True)
 ```
 
