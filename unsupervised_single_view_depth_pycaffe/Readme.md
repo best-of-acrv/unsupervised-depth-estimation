@@ -40,14 +40,14 @@ $ git clone https://github.com/RoboticVisionOrg/unsupervised_depth_estimation.gi
 $ cd unsupervised_depth_estimation
 ```
 
-<!-- From the directory `unsupervised_depth_estimation` navigate to the subdirectory `pycaffe_version (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `caffe-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
+<!-- From the directory `unsupervised_depth_estimation` navigate to the subdirectory `unsupervised_single_view_depth_pycaffe (which is where this Readme is located) and then navigate to the subdirectory `virtual_environment`. Find the file called `caffe-env.yml`. This files contains the required packages and their dependencies for the `conda` environment.  -->
 
 Create the new virtual environment:
 
 ```bash
 $ pwd
 ~/unsupervised_depth_estimation
-$ conda env create -f pycaffe_version/virtual_environment/caffe-env.yml
+$ conda env create -f unsupervised_single_view_depth_pycaffe/virtual_environment/caffe-env.yml
 ```   
 
 Ensure that the conda environment is created:
@@ -78,6 +78,6 @@ Let's run the script as it is. This script will do a list of things:
  
 ```bash
 # From the root directory of the repository
-(caffe-env) $ cd pycaffe_version/src/
+(caffe-env) $ cd unsupervised_single_view_depth_pycaffe/src/
 (caffe-env) $ python3 depth_kitti_samples.py
 ``` 

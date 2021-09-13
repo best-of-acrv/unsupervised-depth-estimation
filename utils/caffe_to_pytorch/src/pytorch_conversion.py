@@ -18,10 +18,10 @@ class TestPytorchConversion:
         self.base_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
         self.write_base_directory = self.base_directory + "/outputs"
         self.parent_directory = os.path.abspath(os.path.join(self.base_directory, os.pardir))
-        self.caffe_net_model = self.parent_directory + "/pycaffe_version/network/deploy_resnet50by2_pool.prototxt"
-        self.caffe_net_weights = self.parent_directory + "/pycaffe_version/network/train_iter_40000.caffemodel"
+        self.caffe_net_model = self.parent_directory + "/unsupervised_single_view_depth_pycaffe/network/deploy_resnet50by2_pool.prototxt"
+        self.caffe_net_weights = self.parent_directory + "/unsupervised_single_view_depth_pycaffe/network/train_iter_40000.caffemodel"
         self.save_pytorch_filename = self.write_base_directory + "/deploy_resnet50by2_pool_pytorch"
-        self.pytorch_presaved_model = self.parent_directory + "/pytorch_version/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
+        self.pytorch_presaved_model = self.parent_directory + "/unsupervised_single_view_depth/network/deploy_resnet50by2_pool_pytorch_modelAndWeights.pth"
         self.phase = 'test'
         self.image_folder = self.base_directory + "/sample_images"
         self.prediction_disp = {}

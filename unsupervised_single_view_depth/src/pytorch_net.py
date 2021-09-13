@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 
 import sys
-sys.path.append('../../caffe_to_pytorch/convertor_tool/pytorch_caffe')
+import os
+base_dir =  os.path.abspath(os.path.join(os.path.join(os.path.abspath(__file__), os.pardir), "../../utils/caffe_to_pytorch/convertor_tool/pytorch_caffe"))
+print(base_dir)
+# sys.path.append('../../utils/caffe_to_pytorch/convertor_tool/pytorch_caffe')
+sys.path.append(base_dir)
+
 from caffenet import *
 
 

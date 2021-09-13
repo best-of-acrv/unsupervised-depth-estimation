@@ -395,7 +395,7 @@ class CaffeNet(nn.Module):
             self.mean_file = self.net_info['props']['mean_file']
 
         self.blobs = None
-        self.verbose = True
+        self.verbose = False
         self.train_outputs = []
         self.eval_outputs = []
         self.forward_data_only = False
@@ -1041,7 +1041,9 @@ class CaffeNet(nn.Module):
             output_width = blob_width[tname] if type(tname) != list else blob_width[tname[0]]
             output_height = blob_height[tname] if type(tname) != list else blob_height[tname[0]]
             output_channels = blob_channels[tname] if type(tname) != list else blob_channels[tname[0]]
-            print('create %-20s (%4d x %4d x %4d) -> (%4d x %4d x %4d)' % (lname, input_channels, input_height, input_width, output_channels, output_height, output_width))
+            print_network = False
+            if print_network:
+                print('create %-20s (%4d x %4d x %4d) -> (%4d x %4d x %4d)' % (lname, input_channels, input_height, input_width, output_channels, output_height, output_width))
 
         return models
 
